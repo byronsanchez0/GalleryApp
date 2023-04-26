@@ -21,12 +21,16 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.galleryapp.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewBinding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
 //    private var imageCapture: ImageCapture? = null
 //
@@ -37,11 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
-        if(savedInstanceState == null){
-            supportFragmentManager
-        }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        //setContentView(binding.root)
+
 //        val transaction = supportFragmentManager.beginTransaction()
 //        transaction.add(viewBinding.fragmentView, CameraFragment())
 

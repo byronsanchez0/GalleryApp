@@ -37,16 +37,16 @@ import java.util.concurrent.ExecutorService
     private val binding get() = _binding!!
 
     private var imageCapture: ImageCapture? = null
-    private lateinit var contentResolver: ContentResolver
 
     private lateinit var cameraExecutor: ExecutorService
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        if (allPermissionsGranted()) {
-//            startCamera()
-//        } else {
+        if (allPermissionsGranted()) {
+            startCamera()
+        }
+//        else {
 //            ActivityCompat.requestPermissions(
 //                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
 //
@@ -62,6 +62,7 @@ import java.util.concurrent.ExecutorService
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
+
         return view
     }
 
@@ -83,7 +84,7 @@ import java.util.concurrent.ExecutorService
         // Create output options object which contains file + metadata
 
         val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(contentResolver,
+            .Builder(requireContext().contentResolver,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 contentValues)
             .build()

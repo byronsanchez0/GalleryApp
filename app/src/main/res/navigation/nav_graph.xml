@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/galleryFragment2">
+    <fragment
+        android:id="@+id/galleryFragment2"
+        android:name="com.example.galleryapp.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+<!--        <action-->
+<!--            android:id="@+id/action_galleryFragment2_to_cameraFragment2"-->
+<!--            app:destination="@id/cameraFragment2" />-->
+    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/cameraFragment2"-->
+<!--        android:name="com.example.galleryapp.CameraFragment"-->
+<!--        android:label="fragment_camera"-->
+<!--        tools:layout="@layout/fragment_camera" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_cameraFragment2_to_galleryFragment2"-->
+<!--            app:destination="@id/galleryFragment2" />-->
+<!--    </fragment>-->
+</navigation>
