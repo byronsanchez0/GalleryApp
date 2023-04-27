@@ -60,7 +60,6 @@ dependencies {
     implementation(libs.camera.video)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.navigation.featmodel)
-    implementation(libs.navigation.testing)
-    implementation(libs.navigation.compose)
+
+
 }

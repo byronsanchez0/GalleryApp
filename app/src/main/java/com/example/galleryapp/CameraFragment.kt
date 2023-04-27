@@ -24,6 +24,7 @@ import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.example.galleryapp.databinding.ActivityMainBinding
 import com.example.galleryapp.databinding.FragmentCameraBinding
 import java.text.SimpleDateFormat
@@ -41,19 +42,19 @@ import java.util.concurrent.ExecutorService
     private lateinit var cameraExecutor: ExecutorService
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (allPermissionsGranted()) {
-            startCamera()
-        }
-//        else {
-//            ActivityCompat.requestPermissions(
-//                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        if (allPermissionsGranted()) {
+//            startCamera()
 //        }
-
-        binding.imageCaptureButton.setOnClickListener { takePhoto() }
-    }
+////        else {
+////            ActivityCompat.requestPermissions(
+////                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+////
+////        }
+//
+//        binding.imageCaptureButton.setOnClickListener { takePhoto() }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,8 +64,19 @@ import java.util.concurrent.ExecutorService
         // Inflate the layout for this fragment
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
 
-        return view
+        return binding.root
     }
+
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+         if (allPermissionsGranted()) {
+             startCamera()
+         }
+         binding.imageCaptureButton.setOnClickListener { takePhoto() }
+         binding.goToGalleryButton.setOnClickListener{
+             findNavController().navigate(R.id.action_cameraFragment2_to_galleryFragment2)
+         }
+     }
 
     private fun takePhoto() {
         // Get a stable reference of the modifiable image capture use case

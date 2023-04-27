@@ -14,12 +14,12 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding.takeAPhotoButton.setOnClickListener{
-            //findNavController().navigate(R.id.action_galleryFragment2_to_cameraFragment2)
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding.takeAPhotoButton.setOnClickListener{
+//            //findNavController().navigate(R.id.action_galleryFragment2_to_cameraFragment2)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,14 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         // Inflate the layout for this fragment
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
-        return view
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.takeAPhotoButton.setOnClickListener{
+            findNavController().navigate(R.id.action_galleryFragment2_to_cameraFragment2)
+        }
     }
 
     companion object {

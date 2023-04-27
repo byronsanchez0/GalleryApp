@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
+        setContentView(binding.root)
 
 //        val transaction = supportFragmentManager.beginTransaction()
 //        transaction.add(viewBinding.fragmentView, CameraFragment())
