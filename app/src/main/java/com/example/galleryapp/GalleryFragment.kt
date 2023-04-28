@@ -6,15 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.galleryapp.databinding.FragmentCameraBinding
 import com.example.galleryapp.databinding.FragmentGalleryBinding
 import java.io.File
 
 
 class GalleryFragment : Fragment(R.layout.fragment_gallery) {
-    private var _binding: FragmentGalleryBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentGalleryBinding
+//    private val binding get() = _binding!!
 
 
 
@@ -29,16 +31,18 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         val photosFiles = photosFolder.listFiles()?.filter { it.extension == image_extension }?.toList()?: emptyList()
 
         val galleryPhotosAdapter = Photos_Adapter( photosFiles)
-        binding.recyclerView.adapter = galleryPhotosAdapter
+        _binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        _binding.recyclerView.adapter = galleryPhotosAdapter
 
 
-        return binding.root
+        return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.takeAPhotoButton.setOnClickListener{
+        _binding.takeAPhotoButton.setOnClickListener{
             findNavController().navigate(R.id.action_galleryFragment2_to_cameraFragment2)
+
         }
     }
 

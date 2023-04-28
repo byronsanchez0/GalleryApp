@@ -71,14 +71,19 @@ import java.util.concurrent.ExecutorService
          super.onViewCreated(view, savedInstanceState)
          if (allPermissionsGranted()) {
              startCamera()
+         }else{
+
          }
-         binding.imageCaptureButton.setOnClickListener { takePhoto() }
+         binding.imageCaptureButton.setOnClickListener { takePhoto()
+             }
+
          binding.goToGalleryButton.setOnClickListener{
              findNavController().navigate(R.id.action_cameraFragment2_to_galleryFragment2)
          }
      }
 
     private fun takePhoto() {
+        println("probando si furula el takephoto")
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -119,8 +124,10 @@ import java.util.concurrent.ExecutorService
                 }
             }
         )
+
     }
     private fun startCamera(){
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener({

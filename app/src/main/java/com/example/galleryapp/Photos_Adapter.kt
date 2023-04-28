@@ -24,6 +24,11 @@ class Photos_Adapter( private var list: List<File>): RecyclerView.Adapter<Photos
 //        var spath = "Pictures/CameraX-Image"
 //        var fullpath = File(gpath + File.separator + spath)
 //         list = imageReader(fullpath)
+        val img : File = list.get(position)
+
+        val imgView = holder.view.itemImg
+//        imgView.setImageResource(img)
+
     }
 
 //    private fun imageReader(root: File): ArrayList<File> {
