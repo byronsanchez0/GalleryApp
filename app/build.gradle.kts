@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.camera.video)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.glide)
+    implementation(libs.glide.compiler)
 
 
 }

@@ -39,8 +39,6 @@ import java.util.concurrent.ExecutorService
 
     private var imageCapture: ImageCapture? = null
 
-    private lateinit var cameraExecutor: ExecutorService
-
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -168,10 +166,6 @@ import java.util.concurrent.ExecutorService
         ContextCompat.checkSelfPermission(
             requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
-    }
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
         IntArray) {
@@ -199,7 +193,7 @@ import java.util.concurrent.ExecutorService
                 Manifest.permission.RECORD_AUDIO
             ).apply {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    add(Manifest.permission.READ_MEDIA_IMAGES)
                 }
             }.toTypedArray()
     }
