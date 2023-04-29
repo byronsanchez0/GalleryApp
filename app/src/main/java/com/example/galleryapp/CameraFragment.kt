@@ -72,6 +72,10 @@ import java.util.concurrent.ExecutorService
          if (allPermissionsGranted()) {
              startCamera()
          }else{
+             this.requestPermissions( REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+             Toast.makeText(requireContext(),
+                 "Permissions not granted by the user.",
+                 Toast.LENGTH_SHORT).show()
 
          }
          binding.imageCaptureButton.setOnClickListener { takePhoto()
