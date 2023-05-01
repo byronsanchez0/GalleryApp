@@ -1,9 +1,7 @@
-package com.example.galleryapp
+package com.example.galleryapp.feature.camera
 
 import android.Manifest
-import android.content.ContentResolver
 import android.content.ContentValues
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -19,40 +17,21 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.example.galleryapp.databinding.ActivityMainBinding
+import com.example.galleryapp.R
 import com.example.galleryapp.databinding.FragmentCameraBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.concurrent.ExecutorService
 
 
- class CameraFragment : Fragment(R.layout.fragment_camera) {
+class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
     private var imageCapture: ImageCapture? = null
 
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        if (allPermissionsGranted()) {
-//            startCamera()
-//        }
-////        else {
-////            ActivityCompat.requestPermissions(
-////                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-////
-////        }
-//
-//        binding.imageCaptureButton.setOnClickListener { takePhoto() }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,24 +44,27 @@ import java.util.concurrent.ExecutorService
         return binding.root
     }
 
-     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-         if (allPermissionsGranted()) {
-             startCamera()
-         }else{
-             this.requestPermissions( REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-             Toast.makeText(requireContext(),
-                 "Permissions not granted by the user.",
-                 Toast.LENGTH_SHORT).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            this.requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            Toast.makeText(
+                requireContext(),
+                "Permissions not granted by the user.",
+                Toast.LENGTH_SHORT
+            ).show()
 
-         }
-         binding.imageCaptureButton.setOnClickListener { takePhoto()
-             }
+        }
+        binding.imageCaptureButton.setOnClickListener {
+            takePhoto()
+        }
 
-         binding.goToGalleryButton.setOnClickListener{
-             findNavController().navigate(R.id.action_cameraFragment2_to_galleryFragment2)
-         }
-     }
+        binding.goToGalleryButton.setOnClickListener {
+            findNavController().navigate(R.id.action_cameraFragment2_to_galleryFragment2)
+        }
+    }
 
     private fun takePhoto() {
         println("probando si furula el takephoto")
@@ -95,7 +77,7 @@ import java.util.concurrent.ExecutorService
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                 put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
             }
         }
@@ -103,9 +85,11 @@ import java.util.concurrent.ExecutorService
         // Create output options object which contains file + metadata
 
         val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(requireContext().contentResolver,
+            .Builder(
+                requireContext().contentResolver,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues)
+                contentValues
+            )
             .build()
 
         // Set up image capture listener, which is triggered after photo has
@@ -119,7 +103,7 @@ import java.util.concurrent.ExecutorService
                 }
 
                 override fun
-                        onImageSaved(output: ImageCapture.OutputFileResults){
+                        onImageSaved(output: ImageCapture.OutputFileResults) {
                     val msg = "Photo capture succeeded: ${output.savedUri}"
                     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
@@ -128,7 +112,8 @@ import java.util.concurrent.ExecutorService
         )
 
     }
-    private fun startCamera(){
+
+    private fun startCamera() {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
@@ -154,29 +139,35 @@ import java.util.concurrent.ExecutorService
 
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture)
+                    this, cameraSelector, preview, imageCapture
+                )
 
-            } catch(exc: Exception) {
+            } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(requireContext()))
     }
+
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            requireContext(), it) == PackageManager.PERMISSION_GRANTED
+        val code = ContextCompat.checkSelfPermission(requireContext(), it)
+        return code == PackageManager.PERMISSION_GRANTED
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray) {
+        IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(requireContext(),
+                Toast.makeText(
+                    requireContext(),
                     "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
 
             }
         }
@@ -188,11 +179,12 @@ import java.util.concurrent.ExecutorService
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
-            mutableListOf (
+            mutableListOf(
                 Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
                     add(Manifest.permission.READ_MEDIA_IMAGES)
                 }
             }.toTypedArray()

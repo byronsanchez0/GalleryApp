@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".GalleryFragment"
+    tools:context=".feature.gallery.GalleryFragment"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,23 +15,34 @@
         tools:listitem="@layout/item_photo"
         tools:itemCount="2"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:src="@drawable/camera_background"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
         android:id="@+id/take_a_photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="25dp"
         android:src="@drawable/baseline_add_a_photo_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_show_photos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:visibility="gone"
+
+    <ImageView
+        android:id="@+id/btn_showSlider"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

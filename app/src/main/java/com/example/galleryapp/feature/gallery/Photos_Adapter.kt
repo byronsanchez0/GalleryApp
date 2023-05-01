@@ -1,10 +1,8 @@
 package com.example.galleryapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
@@ -12,22 +10,21 @@ import com.example.galleryapp.databinding.ItemPhoto2Binding
 import com.example.galleryapp.databinding.ItemPhotoBinding
 import java.io.File
 import java.lang.IllegalArgumentException
-import kotlin.coroutines.coroutineContext
 
-//AQUI TENES QUE PASAR LS LISTA EN RECYCLER VIEW ESTABA PROBANDO Y NO FURULA NO MUESTRA NOTHING
 class PhotosAdapter(
     private var photoList: List<File>,
     private val selectionChangeListener: SelectionChangeListener,
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private val isSelected = MutableList(photoList.size) { false }
-    inner class FirstViewHolder(binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    inner class FirstViewHolder(binding: ItemPhotoBinding) : ViewHolder(binding.root) {
         val image = binding.itemImg
         val icon = binding.iconSelected
     }
 
     inner class SecondViewHolder(binding: ItemPhoto2Binding) :
-        RecyclerView.ViewHolder(binding.root) {
+        ViewHolder(binding.root) {
         val image = binding.itemImg2
         val icon = binding.iconSelected
     }
@@ -36,7 +33,7 @@ class PhotosAdapter(
         fun onSelectionChanged(selectedCount: Int)
     }
 
-    private fun getSelectedImages(): List<File> {
+    fun getSelectedImages(): List<File> {
         return photoList.filterIndexed { index, _ -> isSelected[index] }
     }
 
@@ -81,9 +78,10 @@ class PhotosAdapter(
                 firstViewHolder.image.setOnClickListener {
                     isSelected[position] = !isSelected[position]
                     firstViewHolder.image.alpha = if (isSelected[position]) 0.5f else 1.0f
-                    firstViewHolder.icon.visibility = if (isSelected[position]) View.VISIBLE else View.GONE
+                    firstViewHolder.icon.visibility =
+                        if (isSelected[position]) View.VISIBLE else View.GONE
                     selectionChangeListener.onSelectionChanged(getSelectedImages().size)
-                                }
+                }
             }
 
             VIEW_TYPE_TWO -> {
@@ -95,7 +93,8 @@ class PhotosAdapter(
                 secondViewHolder.image.setOnClickListener {
                     isSelected[position] = !isSelected[position]
                     secondViewHolder.image.alpha = if (isSelected[position]) 0.5f else 1.0f
-                    secondViewHolder.icon.visibility = if (isSelected[position]) View.VISIBLE else View.GONE
+                    secondViewHolder.icon.visibility =
+                        if (isSelected[position]) View.VISIBLE else View.GONE
                     selectionChangeListener.onSelectionChanged(getSelectedImages().size)
                 }
             }

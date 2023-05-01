@@ -6,20 +6,34 @@
     app:startDestination="@id/galleryFragment2">
     <fragment
         android:id="@+id/galleryFragment2"
-        android:name="com.example.galleryapp.GalleryFragment"
+        android:name="com.example.galleryapp.feature.gallery.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" >
         <action
             android:id="@+id/action_galleryFragment2_to_cameraFragment2"
             app:destination="@id/cameraFragment2" />
+        <action
+            android:id="@+id/action_galleryFragment2_to_sliderFragment"
+            app:destination="@id/sliderFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment2"
-        android:name="com.example.galleryapp.CameraFragment"
+        android:name="com.example.galleryapp.feature.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
         <action
             android:id="@+id/action_cameraFragment2_to_galleryFragment2"
             app:destination="@id/galleryFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/sliderFragment"
+        android:name="com.example.galleryapp.feature.slider.SliderFragment"
+        android:label="fragment_slider"
+        tools:layout="@layout/fragment_slider" >
+        <action
+            android:id="@+id/action_sliderFragment_to_galleryFragment2"
+            app:destination="@id/galleryFragment2" />
+    </fragment>
+
+
 </navigation>
